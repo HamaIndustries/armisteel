@@ -19,7 +19,7 @@ public class ArmiGen implements DataGeneratorEntrypoint {
 
         @Override
         protected void generate() {
-
+            // type connencting, layout fulll
         }
     }
 }
