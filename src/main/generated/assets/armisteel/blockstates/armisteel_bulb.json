@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "armisteel:block/armisteel_bulb"
+    },
+    "lit=true": {
+      "model": "armisteel:block/armisteel_bulb_lit"
+    }
+  }
+}

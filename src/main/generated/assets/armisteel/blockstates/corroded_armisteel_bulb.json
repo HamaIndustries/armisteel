@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "armisteel:block/corroded_armisteel_bulb"
+    },
+    "lit=true": {
+      "model": "armisteel:block/corroded_armisteel_bulb_lit"
+    }
+  }
+}

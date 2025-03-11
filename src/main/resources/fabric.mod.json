@@ -22,7 +22,7 @@
 			"symbolics.division.armisteel.ArmisteelClient"
 		],
 		"fabric-datagen": [
-			"symbolics.division.armisteel.ArmiGen"
+          "symbolics.division.armisteel.datagen.ArmiGen"
 		]
 	},
 	"mixins": [

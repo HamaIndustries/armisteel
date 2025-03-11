@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "armisteel:block/ionized_armisteel_chain",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "armisteel:block/ionized_armisteel_chain"
+    },
+    "axis=z": {
+      "model": "armisteel:block/ionized_armisteel_chain",
+      "x": 90
+    }
+  }
+}

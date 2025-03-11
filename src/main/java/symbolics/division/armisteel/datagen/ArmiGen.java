@@ -1,4 +1,4 @@
-package symbolics.division.armisteel;
+package symbolics.division.armisteel.datagen;
 
 import com.supermartijn642.fusion.api.provider.FusionModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
@@ -9,7 +9,10 @@ public class ArmiGen implements DataGeneratorEntrypoint {
 
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
+        FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 
+        pack.addProvider(ArmisticeBlockStateProvider::new);
+        pack.addProvider(ArmisticeLootTableProvider::new);
     }
 
     private static class ArmiModelProvider extends FusionModelProvider {
@@ -19,7 +22,7 @@ public class ArmiGen implements DataGeneratorEntrypoint {
 
         @Override
         protected void generate() {
-            // type connencting, layout fulll
+
         }
     }
 }
