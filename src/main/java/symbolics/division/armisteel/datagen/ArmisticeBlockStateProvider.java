@@ -41,15 +41,15 @@ public class ArmisticeBlockStateProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator generator) {
-        cubeAllWithItem(ArmiBlocks.ARMISTEEL_PLATING, generator);
-        cubeAllWithItem(ArmiBlocks.CORRUGATED_ARMISTEEL, generator);
-        cubeAllWithItem(ArmiBlocks.RIGIDIZED_ARMISTEEL, generator);
-        cubeAllWithItem(ArmiBlocks.ARMISTEEL_MESH, generator);
-        cubeAllWithItem(ArmiBlocks.ARMISTEEL_BLOCK, generator);
-        cubeAllWithItem(ArmiBlocks.ARMISTEEL_PIPING, generator);
-        cubeAllWithItem(ArmiBlocks.ARMISTEEL_VENT, generator);
+        cubeAllWithItem(List.copyOf(ArmiBlocks.ARMISTEEL_PLATING.blocks()), generator);
+        cubeAllWithItem(List.copyOf(ArmiBlocks.CORRUGATED_ARMISTEEL.blocks()), generator);
+        cubeAllWithItem(List.copyOf(ArmiBlocks.RIGIDIZED_ARMISTEEL.blocks()), generator);
+        cubeAllWithItem(List.copyOf(ArmiBlocks.ARMISTEEL_MESH.blocks()), generator);
+        cubeAllWithItem(List.copyOf(ArmiBlocks.ARMISTEEL_BLOCK.blocks()), generator);
+        cubeAllWithItem(List.copyOf(ArmiBlocks.ARMISTEEL_PIPING.blocks()), generator);
+        cubeAllWithItem(List.copyOf(ArmiBlocks.ARMISTEEL_VENT.blocks()), generator);
 
-        for (Block chain : ArmiBlocks.ARMISTEEL_CHAIN) {
+        for (Block chain : ArmiBlocks.ARMISTEEL_CHAIN.blocks()) {
             generator.registerAxisRotated(
                     chain,
                     ModelIds.getBlockModelId(chain)
@@ -57,8 +57,8 @@ public class ArmisticeBlockStateProvider extends FabricModelProvider {
         }
 
 
-        for (Block block : ArmiBlocks.ARMISTEEL_BULB) bulb(block, generator);
-        for (Block block : ArmiBlocks.ARMISTEEL_BARS) {
+        for (Block block : ArmiBlocks.ARMISTEEL_BULB.blocks()) bulb(block, generator);
+        for (Block block : ArmiBlocks.ARMISTEEL_BARS.blocks()) {
             TextureMap textureMap = TextureMap.paneAndTopForEdge(block, block);
             Identifier identifier = Models.TEMPLATE_GLASS_PANE_POST.upload(block, textureMap, generator.modelCollector);
             Identifier identifier2 = Models.TEMPLATE_GLASS_PANE_SIDE.upload(block, textureMap, generator.modelCollector);

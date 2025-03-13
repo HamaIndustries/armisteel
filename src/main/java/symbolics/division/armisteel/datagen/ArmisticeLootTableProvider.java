@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.registry.RegistryWrapper;
 import symbolics.division.armisteel.ArmiBlocks;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -16,22 +17,22 @@ public class ArmisticeLootTableProvider extends FabricBlockLootTableProvider {
 
 	@Override
 	public void generate() {
-		addDrops(ArmiBlocks.ARMISTEEL_GRATE);
-		addDrops(ArmiBlocks.ARMISTEEL_PLATING);
-		addDrops(ArmiBlocks.CORRUGATED_ARMISTEEL);
-		addDrops(ArmiBlocks.ARMISTEEL_CHAIN);
-		addDrops(ArmiBlocks.ARMISTEEL_MESH);
-		addDrops(ArmiBlocks.ARMISTEEL_BLOCK);
-		addDrops(ArmiBlocks.ARMISTEEL_PIPING);
-		addDrops(ArmiBlocks.ARMISTEEL_VENT);
-		addDrops(ArmiBlocks.RIGIDIZED_ARMISTEEL);
-		addDrops(ArmiBlocks.ARMISTEEL_BULB);
-		addDrops(ArmiBlocks.ARMISTEEL_BARS);
-		addDrops(ArmiBlocks.ARMISTEEL_DOOR);
-		addDrops(ArmiBlocks.ARMISTEEL_TRAPDOOR);
+		addDrops(ArmiBlocks.ARMISTEEL_GRATE.blocks());
+		addDrops(ArmiBlocks.ARMISTEEL_PLATING.blocks());
+		addDrops(ArmiBlocks.CORRUGATED_ARMISTEEL.blocks());
+		addDrops(ArmiBlocks.ARMISTEEL_CHAIN.blocks());
+		addDrops(ArmiBlocks.ARMISTEEL_MESH.blocks());
+		addDrops(ArmiBlocks.ARMISTEEL_BLOCK.blocks());
+		addDrops(ArmiBlocks.ARMISTEEL_PIPING.blocks());
+		addDrops(ArmiBlocks.ARMISTEEL_VENT.blocks());
+		addDrops(ArmiBlocks.RIGIDIZED_ARMISTEEL.blocks());
+		addDrops(ArmiBlocks.ARMISTEEL_BULB.blocks());
+		addDrops(ArmiBlocks.ARMISTEEL_BARS.blocks());
+		addDrops(ArmiBlocks.ARMISTEEL_DOOR.blocks());
+		addDrops(ArmiBlocks.ARMISTEEL_TRAPDOOR.blocks());
 	}
 
-	private void addDrops(List<Block> blocks) {
+	private void addDrops(Collection<Block> blocks) {
 		for (Block block : blocks) addDrop(block);
 	}
 

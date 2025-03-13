@@ -1,5 +1,6 @@
 package symbolics.division.armisteel;
 
+import com.sun.source.tree.IdentifierTree;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSetType;
@@ -14,15 +15,38 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class ArmiBlocks {
-    public static final List<Block> ARMISTEEL_GRATE = makeVariants(
+    public static final class BlockType {
+        private Map<ArmisteelType, Block> blocks = new HashMap<>();
+        public final String type;
+        public BlockType(String type) {
+            this.type = type;
+        }
+
+        private void add(ArmisteelType armisteelType, Block block) {
+            blocks.put(armisteelType, block);
+        }
+
+        public Block get(ArmisteelType armisteelType) {
+            return blocks.get(armisteelType);
+        }
+
+        public Collection<Block> blocks() { return blocks.values(); }
+    }
+
+    public static final BlockType ARMISTEEL_GRATE = makeVariants(
             () -> new GrateBlock(
                     AbstractBlock.Settings.create()
                             .strength(3.0F, 6.0F)
@@ -38,7 +62,7 @@ public class ArmiBlocks {
             "armisteel_grate"
     );
 
-    public static final List<Block> ARMISTEEL_PLATING = makeVariants(
+    public static final BlockType ARMISTEEL_PLATING = makeVariants(
             () -> new Block(
                     AbstractBlock.Settings.create()
                             .strength(3.0F, 6.0F)
@@ -49,7 +73,7 @@ public class ArmiBlocks {
             "armisteel_plating"
     );
 
-    public static final List<Block> CORRUGATED_ARMISTEEL = makeVariants(
+    public static final BlockType CORRUGATED_ARMISTEEL = makeVariants(
             () -> new Block(
                     AbstractBlock.Settings.create()
                             .strength(3.0F, 6.0F)
@@ -60,7 +84,7 @@ public class ArmiBlocks {
             "corrugated_armisteel"
     );
 
-    public static final List<Block> ARMISTEEL_PIPING = makeVariants(
+    public static final BlockType ARMISTEEL_PIPING = makeVariants(
             () -> new Block(
                     AbstractBlock.Settings.create()
                             .strength(3.0F, 6.0F)
@@ -71,7 +95,7 @@ public class ArmiBlocks {
             "armisteel_piping"
     );
 
-    public static final List<Block> ARMISTEEL_VENT = makeVariants(
+    public static final BlockType ARMISTEEL_VENT = makeVariants(
             () -> new Block(
                     AbstractBlock.Settings.create()
                             .strength(3.0F, 6.0F)
@@ -82,7 +106,7 @@ public class ArmiBlocks {
             "armisteel_vent"
     );
 
-    public static final List<Block> ARMISTEEL_MESH = makeVariants(
+    public static final BlockType ARMISTEEL_MESH = makeVariants(
             () -> new Block(
                     AbstractBlock.Settings.create()
                             .strength(3.0F, 6.0F)
@@ -93,7 +117,7 @@ public class ArmiBlocks {
             "armisteel_mesh"
     );
 
-    public static final List<Block> RIGIDIZED_ARMISTEEL = makeVariants(
+    public static final BlockType RIGIDIZED_ARMISTEEL = makeVariants(
             () -> new Block(
                     AbstractBlock.Settings.create()
                             .strength(3.0F, 6.0F)
@@ -104,7 +128,7 @@ public class ArmiBlocks {
             "rigidized_armisteel"
     );
 
-    public static final List<Block> ARMISTEEL_BLOCK = makeVariants(
+    public static final BlockType ARMISTEEL_BLOCK = makeVariants(
             () -> new Block(
                     AbstractBlock.Settings.create()
                             .strength(3.0F, 6.0F)
@@ -115,7 +139,7 @@ public class ArmiBlocks {
             "armisteel_block"
     );
 
-    public static final List<Block> ARMISTEEL_BULB = makeVariants(
+    public static final BlockType ARMISTEEL_BULB = makeVariants(
             () -> new BulbBlock(
                     AbstractBlock.Settings.create()
                             .strength(3.0F, 6.0F)
@@ -128,7 +152,7 @@ public class ArmiBlocks {
             "armisteel_bulb"
     );
 
-    public static final List<Block> ARMISTEEL_CHAIN = makeVariants(
+    public static final BlockType ARMISTEEL_CHAIN = makeVariants(
             () -> new ArmisteelChainBlock(
                     AbstractBlock.Settings.create()
                             .solid()
@@ -140,7 +164,7 @@ public class ArmiBlocks {
             "armisteel_chain"
     );
 
-    public static final List<Block> ARMISTEEL_BARS = makeVariants(
+    public static final BlockType ARMISTEEL_BARS = makeVariants(
             () -> new PaneBlock(
                     AbstractBlock.Settings.create().
                             requiresTool()
@@ -151,7 +175,7 @@ public class ArmiBlocks {
             "armisteel_bars"
     );
 
-    public static final List<Block> ARMISTEEL_TRAPDOOR = makeVariants(
+    public static final BlockType ARMISTEEL_TRAPDOOR = makeVariants(
             () -> new TrapdoorBlock(
                     BlockSetType.IRON,
                     AbstractBlock.Settings.create()
@@ -163,7 +187,7 @@ public class ArmiBlocks {
             "armisteel_trapdoor"
     );
 
-    public static final List<Block> ARMISTEEL_DOOR = makeVariants(
+    public static final BlockType ARMISTEEL_DOOR = makeVariants(
             () -> new DoorBlock(
                     BlockSetType.IRON,
                     AbstractBlock.Settings.create()
@@ -175,18 +199,18 @@ public class ArmiBlocks {
             "armisteel_door"
     );
 
-    private static List<Block> makeVariants(Supplier<Block> supplier, String id) {
-        List<Block> list = new ArrayList<>();
+    private static BlockType makeVariants(Supplier<Block> supplier, String id) {
+        BlockType type = new BlockType(id);
         for (ArmisteelType variant : ArmisteelType.values()) {
             Block block = supplier.get();
             Registry.register(
                     Registries.BLOCK,
-                    Armisteel.id(variant.id() + id),
+                    Armisteel.id(variant.prefix() + id),
                     block
             );
-            list.add(block);
+            type.add(variant, block);
         }
-        return list;
+        return type;
     }
 
     /**
