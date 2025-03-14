@@ -63,7 +63,7 @@ public class ArmiGen implements DataGeneratorEntrypoint {
 
 
     private class ArmiTextureMetadataProvider extends FusionTextureMetadataProvider {
-
+        
         public ArmiTextureMetadataProvider(FabricDataOutput output) {
             super(Armisteel.MOD_ID, output);
         }
