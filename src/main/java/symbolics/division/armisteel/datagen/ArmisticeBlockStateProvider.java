@@ -3,8 +3,10 @@ package symbolics.division.armisteel.datagen;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.BlockStateVariant;
+import net.minecraft.data.client.BlockStateVariantMap;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.ModelIds;
 import net.minecraft.data.client.Models;
@@ -20,6 +22,7 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import symbolics.division.armisteel.ArmiBlocks;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ArmisticeBlockStateProvider extends FabricModelProvider {
@@ -50,6 +53,27 @@ public class ArmisticeBlockStateProvider extends FabricModelProvider {
         cubeAllWithItem(List.copyOf(ArmiBlocks.ARMISTEEL_PIPING.blocks()), generator);
         cubeAllWithItem(List.copyOf(ArmiBlocks.ARMISTEEL_VENT.blocks()), generator);
         cubeAllWithItem(List.copyOf(ArmiBlocks.ARMISTEEL_GRATE.blocks()), generator);
+
+        generator.registerSimpleCubeAll(ArmiBlocks.CRYOSTONE);
+        generator.registerSimpleCubeAll(ArmiBlocks.CRYOBBLESTONE);
+
+        generator.registerSimpleCubeAll(ArmiBlocks.CORRODESTONE);
+        generator.registerSimpleCubeAll(ArmiBlocks.CORRODLESTONE);
+        generator.registerSimpleCubeAll(ArmiBlocks.OOZING_CORRODLESTONE);
+
+        generator.registerSimpleCubeAll(ArmiBlocks.SCORCHSTONE);
+        generator.registerSimpleCubeAll(ArmiBlocks.SCORBBLESTONE);
+
+        generator.registerSimpleCubeAll(ArmiBlocks.SCORCHED_DIRT);
+
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(
+                ArmiBlocks.SCORCHED_GRASS,
+                BlockStateModelGenerator.createModelVariantWithRandomHorizontalRotations(TexturedModel.CUBE_BOTTOM_TOP
+                        .get(ArmiBlocks.SCORCHED_GRASS)
+                        .textures(textures -> textures.put(TextureKey.BOTTOM, TextureMap.getId(ArmiBlocks.SCORCHED_DIRT)))
+                        .upload(ArmiBlocks.SCORCHED_GRASS, generator.modelCollector)))
+        );
+
 
         for (Block chain : ArmiBlocks.ARMISTEEL_CHAIN.blocks()) {
             generator.registerAxisRotated(

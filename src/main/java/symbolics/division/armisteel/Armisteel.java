@@ -43,6 +43,19 @@ public class Armisteel implements ModInitializer {
 							for (Block block : ArmiBlocks.ARMISTEEL_BARS.blocks()) entries.add(block);
 							for (Block block : ArmiBlocks.ARMISTEEL_TRAPDOOR.blocks()) entries.add(block);
 							for (Block block : ArmiBlocks.ARMISTEEL_DOOR.blocks()) entries.add(block);
+
+							entries.add(ArmiBlocks.CRYOSTONE);
+							entries.add(ArmiBlocks.CRYOBBLESTONE);
+
+							entries.add(ArmiBlocks.CORRODESTONE);
+							entries.add(ArmiBlocks.CORRODLESTONE);
+							entries.add(ArmiBlocks.OOZING_CORRODLESTONE);
+
+							entries.add(ArmiBlocks.SCORCHSTONE);
+							entries.add(ArmiBlocks.SCORBBLESTONE);
+
+							entries.add(ArmiBlocks.SCORCHED_DIRT);
+							entries.add(ArmiBlocks.SCORCHED_GRASS);
 						})
 						.build()
 		);

@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "armisteel:block/scorched_grass"
+      },
+      {
+        "model": "armisteel:block/scorched_grass",
+        "y": 90
+      },
+      {
+        "model": "armisteel:block/scorched_grass",
+        "y": 180
+      },
+      {
+        "model": "armisteel:block/scorched_grass",
+        "y": 270
+      }
+    ]
+  }
+}

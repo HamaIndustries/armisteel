@@ -7,10 +7,12 @@ import net.minecraft.block.BlockSetType;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.BulbBlock;
 import net.minecraft.block.DoorBlock;
+import net.minecraft.block.GrassBlock;
 import net.minecraft.block.GrateBlock;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.PaneBlock;
 import net.minecraft.block.TrapdoorBlock;
+import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -34,6 +36,7 @@ public class ArmiBlocks {
         private Map<ArmisteelType, Block> blocks = new HashMap<>();
         public final String type;
         public final String name;
+
         public BlockType(String type, String name) {
             this.type = type;
             this.name = name;
@@ -47,8 +50,13 @@ public class ArmiBlocks {
             return blocks.get(armisteelType);
         }
 
-        public Collection<Block> blocks() { return blocks.values(); }
-        public Map<ArmisteelType, Block> map() { return blocks; }
+        public Collection<Block> blocks() {
+            return blocks.values();
+        }
+
+        public Map<ArmisteelType, Block> map() {
+            return blocks;
+        }
     }
 
     public static final BlockType ARMISTEEL_GRATE = makeVariants(
@@ -203,6 +211,119 @@ public class ArmiBlocks {
             ),
             "armisteel_door", "Armisteel Door"
     );
+
+    public static final Block CRYOSTONE = register(
+            "cryostone",
+            new Block(
+                    AbstractBlock.Settings.create()
+                            .mapColor(MapColor.STONE_GRAY)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresTool()
+                            .strength(1.5F, 6.0F)
+            )
+    );
+
+    public static final Block CRYOBBLESTONE = register(
+            "cryobblestone",
+            new Block(
+                    AbstractBlock.Settings.create()
+                            .mapColor(MapColor.STONE_GRAY)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresTool()
+                            .strength(2.0F, 6.0F)
+            )
+    );
+
+    public static final Block CORRODESTONE = register(
+            "corrodestone",
+            new Block(
+                    AbstractBlock.Settings.create()
+                            .mapColor(MapColor.STONE_GRAY)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresTool()
+                            .strength(1.5F, 6.0F)
+            )
+    );
+
+    public static final Block CORRODLESTONE = register(
+            "corrodlestone",
+            new Block(
+                    AbstractBlock.Settings.create()
+                            .mapColor(MapColor.STONE_GRAY)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresTool()
+                            .strength(2.0F, 6.0F)
+            )
+    );
+
+    public static final Block OOZING_CORRODLESTONE = register(
+            "oozing_corrodlestone",
+            new Block(
+                    AbstractBlock.Settings.create()
+                            .mapColor(MapColor.STONE_GRAY)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresTool()
+                            .strength(2.0F, 6.0F)
+            )
+    );
+
+    public static final Block SCORCHSTONE = register(
+            "scorchstone",
+            new Block(
+                    AbstractBlock.Settings.create()
+                            .mapColor(MapColor.STONE_GRAY)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresTool()
+                            .strength(1.5F, 6.0F)
+            )
+    );
+
+    public static final Block SCORBBLESTONE = register(
+            "scorbblestone",
+            new Block(
+                    AbstractBlock.Settings.create()
+                            .mapColor(MapColor.STONE_GRAY)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresTool()
+                            .strength(2.0F, 6.0F)
+            )
+    );
+
+    public static final Block SCORCHED_DIRT = register(
+            "scorched_dirt",
+            new Block(
+                    AbstractBlock.Settings.create()
+                            .mapColor(MapColor.DIRT_BROWN)
+                            .strength(0.5F)
+                            .sounds(BlockSoundGroup.GRAVEL)
+            )
+    );
+
+    public static final Block SCORCHED_GRASS = register(
+            "scorched_grass",
+            new Block(
+                    AbstractBlock.Settings.create()
+                            .mapColor(MapColor.PALE_GREEN)
+                            .strength(0.6F)
+                            .sounds(BlockSoundGroup.GRASS)
+            )
+    );
+    
+    private static Block register(String id, Block block) {
+        Registry.register(
+                Registries.BLOCK,
+                Armisteel.id(id),
+                block
+        );
+        
+        Registry.register(
+                Registries.ITEM,
+                Armisteel.id(id),
+                new BlockItem(block, new Item.Settings())
+        );
+        
+        return block;
+    }
 
     private static BlockType makeVariants(Supplier<Block> supplier, String id, String name) {
         BlockType type = new BlockType(id, name);
