@@ -56,6 +56,9 @@ public class Armisteel implements ModInitializer {
 
 							entries.add(ArmiBlocks.SCORCHED_DIRT);
 							entries.add(ArmiBlocks.SCORCHED_GRASS);
+
+							entries.add(ArmiBlocks.ASH);
+							entries.add(ArmiBlocks.SLAG);
 						})
 						.build()
 		);

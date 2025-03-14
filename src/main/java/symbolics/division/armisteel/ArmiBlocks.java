@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockSetType;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.BulbBlock;
+import net.minecraft.block.ColoredFallingBlock;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.GrassBlock;
 import net.minecraft.block.GrateBlock;
@@ -19,6 +20,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.ColorCode;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 
@@ -306,6 +308,29 @@ public class ArmiBlocks {
                             .mapColor(MapColor.PALE_GREEN)
                             .strength(0.6F)
                             .sounds(BlockSoundGroup.GRASS)
+            )
+    );
+
+    public static final Block ASH = register(
+            "ash",
+            new ColoredFallingBlock(
+                    new ColorCode(0x646464),
+                    AbstractBlock.Settings.create()
+                            .mapColor(MapColor.DEEPSLATE_GRAY)
+                            .instrument(NoteBlockInstrument.SNARE)
+                            .strength(0.5F)
+                            .sounds(BlockSoundGroup.SAND)
+            )
+    );
+
+    public static final Block SLAG = register(
+            "slag",
+            new Block(
+                    AbstractBlock.Settings.create()
+                            .mapColor(MapColor.BLACK)
+                            .requiresTool()
+                            .strength(30.0F, 1200.0F)
+                            .sounds(BlockSoundGroup.ANCIENT_DEBRIS)
             )
     );
     

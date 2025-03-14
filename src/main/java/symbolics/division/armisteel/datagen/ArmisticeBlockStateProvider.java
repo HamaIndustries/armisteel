@@ -66,6 +66,9 @@ public class ArmisticeBlockStateProvider extends FabricModelProvider {
 
         generator.registerSimpleCubeAll(ArmiBlocks.SCORCHED_DIRT);
 
+        generator.registerSimpleCubeAll(ArmiBlocks.ASH);
+        generator.registerSimpleCubeAll(ArmiBlocks.SLAG);
+
         generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(
                 ArmiBlocks.SCORCHED_GRASS,
                 BlockStateModelGenerator.createModelVariantWithRandomHorizontalRotations(TexturedModel.CUBE_BOTTOM_TOP
