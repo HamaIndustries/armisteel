@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "armisteel:block/scorched_armisteel_chain"
+  }
+}

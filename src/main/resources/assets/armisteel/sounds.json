@@ -1,0 +1,33 @@
+{
+  "block.armisteel.break": {
+    "sounds": [
+      "armisteel:block/armisteel/break"
+    ]
+  },
+  "block.armisteel.fall": {
+    "sounds": [
+      "armisteel:block/armisteel/fall"
+    ]
+  },
+  "block.armisteel.hit": {
+    "sounds": [
+      "armisteel:block/armisteel/hit1",
+      "armisteel:block/armisteel/hit2",
+      "armisteel:block/armisteel/hit3",
+      "armisteel:block/armisteel/hit4"
+    ]
+  },
+  "block.armisteel.place": {
+    "sounds": [
+      "armisteel:block/armisteel/place"
+    ]
+  },
+  "block.armisteel.step": {
+    "sounds": [
+      "armisteel:block/armisteel/step1",
+      "armisteel:block/armisteel/step2",
+      "armisteel:block/armisteel/step3",
+      "armisteel:block/armisteel/step4"
+    ]
+  }
+}

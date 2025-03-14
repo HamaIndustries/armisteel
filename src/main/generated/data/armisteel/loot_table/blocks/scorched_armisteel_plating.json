@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:air"
+          "name": "armisteel:scorched_armisteel_plating"
         }
       ],
       "rolls": 1.0

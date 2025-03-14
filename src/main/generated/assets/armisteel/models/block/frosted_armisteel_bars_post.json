@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/template_glass_pane_post",
-  "textures": {
-    "edge": "armisteel:block/frosted_armisteel_bars_top",
-    "pane": "armisteel:block/frosted_armisteel_bars"
-  }
-}

@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:air"
+          "name": "armisteel:rusted_armisteel_grate"
         }
       ],
       "rolls": 1.0

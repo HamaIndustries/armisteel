@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_left_open",
+  "textures": {
+    "bottom": "armisteel:block/ionized_armisteel_door_bottom",
+    "top": "armisteel:block/ionized_armisteel_door_top"
+  }
+}

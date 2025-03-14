@@ -11,6 +11,8 @@ import net.minecraft.block.GrateBlock;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.PaneBlock;
 import net.minecraft.block.TrapdoorBlock;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
@@ -31,8 +33,10 @@ public class ArmiBlocks {
     public static final class BlockType {
         private Map<ArmisteelType, Block> blocks = new HashMap<>();
         public final String type;
-        public BlockType(String type) {
+        public final String name;
+        public BlockType(String type, String name) {
             this.type = type;
+            this.name = name;
         }
 
         private void add(ArmisteelType armisteelType, Block block) {
@@ -44,6 +48,7 @@ public class ArmiBlocks {
         }
 
         public Collection<Block> blocks() { return blocks.values(); }
+        public Map<ArmisteelType, Block> map() { return blocks; }
     }
 
     public static final BlockType ARMISTEEL_GRATE = makeVariants(
@@ -59,7 +64,7 @@ public class ArmiBlocks {
                             .suffocates((state, level, pos) -> false)
                             .nonOpaque()
             ),
-            "armisteel_grate"
+            "armisteel_grate", "Armisteel Grate"
     );
 
     public static final BlockType ARMISTEEL_PLATING = makeVariants(
@@ -70,7 +75,7 @@ public class ArmiBlocks {
                             .mapColor(MapColor.IRON_GRAY)
                             .requiresTool()
             ),
-            "armisteel_plating"
+            "armisteel_plating", "Armisteel Plating"
     );
 
     public static final BlockType CORRUGATED_ARMISTEEL = makeVariants(
@@ -81,7 +86,7 @@ public class ArmiBlocks {
                             .mapColor(MapColor.IRON_GRAY)
                             .requiresTool()
             ),
-            "corrugated_armisteel"
+            "corrugated_armisteel", "Corrugated Armisteel"
     );
 
     public static final BlockType ARMISTEEL_PIPING = makeVariants(
@@ -92,7 +97,7 @@ public class ArmiBlocks {
                             .mapColor(MapColor.IRON_GRAY)
                             .requiresTool()
             ),
-            "armisteel_piping"
+            "armisteel_piping", "Armisteel Piping"
     );
 
     public static final BlockType ARMISTEEL_VENT = makeVariants(
@@ -103,7 +108,7 @@ public class ArmiBlocks {
                             .mapColor(MapColor.IRON_GRAY)
                             .requiresTool()
             ),
-            "armisteel_vent"
+            "armisteel_vent", "Armisteel Vent"
     );
 
     public static final BlockType ARMISTEEL_MESH = makeVariants(
@@ -114,7 +119,7 @@ public class ArmiBlocks {
                             .mapColor(MapColor.IRON_GRAY)
                             .requiresTool()
             ),
-            "armisteel_mesh"
+            "armisteel_mesh", "Armisteel Mesh"
     );
 
     public static final BlockType RIGIDIZED_ARMISTEEL = makeVariants(
@@ -125,7 +130,7 @@ public class ArmiBlocks {
                             .mapColor(MapColor.IRON_GRAY)
                             .requiresTool()
             ),
-            "rigidized_armisteel"
+            "rigidized_armisteel", "Rigidized Armisteel"
     );
 
     public static final BlockType ARMISTEEL_BLOCK = makeVariants(
@@ -136,7 +141,7 @@ public class ArmiBlocks {
                             .mapColor(MapColor.IRON_GRAY)
                             .requiresTool()
             ),
-            "armisteel_block"
+            "armisteel_block", "Armisteel Block"
     );
 
     public static final BlockType ARMISTEEL_BULB = makeVariants(
@@ -149,7 +154,7 @@ public class ArmiBlocks {
                             .solidBlock((state, level, pos) -> false)
                             .luminance(state -> state.get(Properties.LIT) ? 15 : 0)
             ),
-            "armisteel_bulb"
+            "armisteel_bulb", "Armisteel Bulb"
     );
 
     public static final BlockType ARMISTEEL_CHAIN = makeVariants(
@@ -161,7 +166,7 @@ public class ArmiBlocks {
                             .sounds(BlockSoundGroup.CHAIN)
                             .nonOpaque()
             ),
-            "armisteel_chain"
+            "armisteel_chain", "Armisteel Chain"
     );
 
     public static final BlockType ARMISTEEL_BARS = makeVariants(
@@ -172,7 +177,7 @@ public class ArmiBlocks {
                             .sounds(BlockSoundGroup.CHAIN)
                             .nonOpaque()
             ),
-            "armisteel_bars"
+            "armisteel_bars", "Armisteel Bars"
     );
 
     public static final BlockType ARMISTEEL_TRAPDOOR = makeVariants(
@@ -184,7 +189,7 @@ public class ArmiBlocks {
                             .mapColor(MapColor.IRON_GRAY)
                             .requiresTool()
             ),
-            "armisteel_trapdoor"
+            "armisteel_trapdoor", "Armisteel Trapdoor"
     );
 
     public static final BlockType ARMISTEEL_DOOR = makeVariants(
@@ -196,17 +201,23 @@ public class ArmiBlocks {
                             .mapColor(MapColor.IRON_GRAY)
                             .requiresTool()
             ),
-            "armisteel_door"
+            "armisteel_door", "Armisteel Door"
     );
 
-    private static BlockType makeVariants(Supplier<Block> supplier, String id) {
-        BlockType type = new BlockType(id);
+    private static BlockType makeVariants(Supplier<Block> supplier, String id, String name) {
+        BlockType type = new BlockType(id, name);
         for (ArmisteelType variant : ArmisteelType.values()) {
             Block block = supplier.get();
             Registry.register(
                     Registries.BLOCK,
                     Armisteel.id(variant.prefix() + id),
                     block
+            );
+
+            Registry.register(
+                    Registries.ITEM,
+                    Armisteel.id(variant.prefix() + id),
+                    new BlockItem(block, new Item.Settings())
             );
             type.add(variant, block);
         }

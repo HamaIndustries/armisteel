@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "armisteel:item/rusted_armisteel_door"
+  }
+}

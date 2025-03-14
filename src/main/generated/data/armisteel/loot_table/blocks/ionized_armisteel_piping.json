@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:air"
+          "name": "armisteel:ionized_armisteel_piping"
         }
       ],
       "rolls": 1.0

@@ -1,10 +1,13 @@
 package symbolics.division.armisteel;
 
+import com.google.common.base.Strings;
+import io.netty.util.internal.StringUtil;
+import org.apache.commons.lang3.StringUtils;
+
 public enum ArmisteelType {
     // standard, corroded, frosted, ionized, rusted, scorched
     DEFAULT(""),
     CORRODED("corroded"),
-    FROSTED("frosted"),
     IONIZED("ionized"),
     RUSTED("rusted"),
     SCORCHED("scorched");
@@ -23,5 +26,9 @@ public enum ArmisteelType {
 
     public String prefix() {
         return prefix;
+    }
+
+    public String getName() {
+        return id.isEmpty() ? "" : StringUtils.capitalize(id()) + " ";
     }
 }

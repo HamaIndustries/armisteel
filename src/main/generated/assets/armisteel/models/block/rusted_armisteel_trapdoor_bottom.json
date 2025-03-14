@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_trapdoor_bottom",
+  "textures": {
+    "texture": "armisteel:block/rusted_armisteel_trapdoor"
+  }
+}
