@@ -19,11 +19,13 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
+import org.apache.commons.lang3.text.WordUtils;
 import symbolics.division.armisteel.ArmiBlocks;
 import symbolics.division.armisteel.Armisteel;
 import symbolics.division.armisteel.ArmisteelType;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 public class ArmiGen implements DataGeneratorEntrypoint {
@@ -75,7 +77,7 @@ public class ArmiGen implements DataGeneratorEntrypoint {
 
 
     private static class ArmiTextureMetadataProvider extends FusionTextureMetadataProvider {
-        
+
         public ArmiTextureMetadataProvider(FabricDataOutput output) {
             super(Armisteel.MOD_ID, output);
         }
@@ -114,7 +116,11 @@ public class ArmiGen implements DataGeneratorEntrypoint {
         }
 
         @Override
-        public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder builder) {
+        public void generateTranslations(RegistryWrapper.WrapperLookup lookup, TranslationBuilder builder) {
+            for (Block normal : ArmiBlocks.getNormalBlocks()) {
+                addByID(normal, builder, lookup);
+            }
+
             addAll(ArmiBlocks.ARMISTEEL_GRATE, builder);
             addAll(ArmiBlocks.ARMISTEEL_PLATING, builder);
             addAll(ArmiBlocks.CORRUGATED_ARMISTEEL, builder);
@@ -137,7 +143,7 @@ public class ArmiGen implements DataGeneratorEntrypoint {
                     "Armisteel"
             );
         }
-        
+
         private void addAll(ArmiBlocks.BlockType type, TranslationBuilder builder) {
             for (Map.Entry<ArmisteelType, Block> pair : type.map().entrySet()) {
                 builder.add(
@@ -145,6 +151,15 @@ public class ArmiGen implements DataGeneratorEntrypoint {
                         pair.getKey().getName() + type.name
                 );
             }
+        }
+
+        private void addByID(Block block, TranslationBuilder builder, RegistryWrapper.WrapperLookup lookup) {
+            Identifier id = Objects.requireNonNull(Registries.BLOCK.getId(block));
+            builder.add(
+                    block,
+                    // sowwy echo
+                    WordUtils.capitalizeFully(id.getPath().replace("_", " "))
+            );
         }
     }
 }

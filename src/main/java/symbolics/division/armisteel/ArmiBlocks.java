@@ -1,6 +1,5 @@
 package symbolics.division.armisteel;
 
-import com.sun.source.tree.IdentifierTree;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSetType;
@@ -8,7 +7,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.BulbBlock;
 import net.minecraft.block.ColoredFallingBlock;
 import net.minecraft.block.DoorBlock;
-import net.minecraft.block.GrassBlock;
 import net.minecraft.block.GrateBlock;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.PaneBlock;
@@ -21,19 +19,17 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ColorCode;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class ArmiBlocks {
+    private static final List<Block> normalBlocks = new ArrayList<>();
+
     public static final class BlockType {
         private Map<ArmisteelType, Block> blocks = new HashMap<>();
         public final String type;
@@ -333,20 +329,22 @@ public class ArmiBlocks {
                             .sounds(BlockSoundGroup.ANCIENT_DEBRIS)
             )
     );
-    
+
     private static Block register(String id, Block block) {
         Registry.register(
                 Registries.BLOCK,
                 Armisteel.id(id),
                 block
         );
-        
+
         Registry.register(
                 Registries.ITEM,
                 Armisteel.id(id),
                 new BlockItem(block, new Item.Settings())
         );
-        
+
+        normalBlocks.add(block);
+
         return block;
     }
 
@@ -368,6 +366,10 @@ public class ArmiBlocks {
             type.add(variant, block);
         }
         return type;
+    }
+
+    public static List<Block> getNormalBlocks() {
+        return List.copyOf(normalBlocks);
     }
 
     /**
