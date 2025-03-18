@@ -2,7 +2,114 @@
   "multipart": [
     {
       "apply": {
+        "model": "armisteel:block/scorched_armisteel_bars_post_ends"
+      }
+    },
+    {
+      "apply": {
         "model": "armisteel:block/scorched_armisteel_bars_post"
+      },
+      "when": {
+        "AND": [
+          {
+            "north": "false"
+          },
+          {
+            "south": "false"
+          },
+          {
+            "east": "false"
+          },
+          {
+            "west": "false"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "armisteel:block/scorched_armisteel_bars_cap"
+      },
+      "when": {
+        "AND": [
+          {
+            "north": "true"
+          },
+          {
+            "south": "false"
+          },
+          {
+            "east": "false"
+          },
+          {
+            "west": "false"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "armisteel:block/scorched_armisteel_bars_cap",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "north": "false"
+          },
+          {
+            "south": "false"
+          },
+          {
+            "east": "true"
+          },
+          {
+            "west": "false"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "armisteel:block/scorched_armisteel_bars_cap_alt"
+      },
+      "when": {
+        "AND": [
+          {
+            "north": "false"
+          },
+          {
+            "south": "true"
+          },
+          {
+            "east": "false"
+          },
+          {
+            "west": "false"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "armisteel:block/scorched_armisteel_bars_cap_alt",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "north": "false"
+          },
+          {
+            "south": "false"
+          },
+          {
+            "east": "false"
+          },
+          {
+            "west": "true"
+          }
+        ]
       }
     },
     {
@@ -37,40 +144,6 @@
       },
       "when": {
         "west": "true"
-      }
-    },
-    {
-      "apply": {
-        "model": "armisteel:block/scorched_armisteel_bars_noside"
-      },
-      "when": {
-        "north": "false"
-      }
-    },
-    {
-      "apply": {
-        "model": "armisteel:block/scorched_armisteel_bars_noside_alt"
-      },
-      "when": {
-        "east": "false"
-      }
-    },
-    {
-      "apply": {
-        "model": "armisteel:block/scorched_armisteel_bars_noside_alt",
-        "y": 90
-      },
-      "when": {
-        "south": "false"
-      }
-    },
-    {
-      "apply": {
-        "model": "armisteel:block/scorched_armisteel_bars_noside",
-        "y": 270
-      },
-      "when": {
-        "west": "false"
       }
     }
   ]

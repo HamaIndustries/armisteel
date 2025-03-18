@@ -1,7 +1,7 @@
 {
-  "parent": "minecraft:block/template_glass_pane_side_alt",
+  "parent": "minecraft:block/iron_bars_side_alt",
   "textures": {
-    "edge": "armisteel:block/rusted_armisteel_bars",
-    "pane": "armisteel:block/rusted_armisteel_bars"
+    "bars": "armisteel:block/rusted_armisteel_bars",
+    "edge": "armisteel:block/rusted_armisteel_bars"
   }
 }

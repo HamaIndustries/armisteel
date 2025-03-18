@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/iron_bars_side",
+  "parent": "minecraft:block/iron_bars_cap",
   "textures": {
     "bars": "armisteel:block/rusted_armisteel_bars",
     "edge": "armisteel:block/rusted_armisteel_bars"

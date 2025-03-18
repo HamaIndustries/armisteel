@@ -1,7 +1,6 @@
 {
-  "parent": "minecraft:block/template_glass_pane_post",
+  "parent": "minecraft:block/iron_bars_post",
   "textures": {
-    "edge": "armisteel:block/armisteel_bars",
-    "pane": "armisteel:block/armisteel_bars"
+    "bars": "armisteel:block/armisteel_bars"
   }
 }

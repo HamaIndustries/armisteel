@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/template_glass_pane_noside",
-  "textures": {
-    "pane": "armisteel:block/scorched_armisteel_bars"
-  }
-}

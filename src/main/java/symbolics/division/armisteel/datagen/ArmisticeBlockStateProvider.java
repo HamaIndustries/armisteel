@@ -8,6 +8,7 @@ import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.BlockStateVariant;
 import net.minecraft.data.client.BlockStateVariantMap;
 import net.minecraft.data.client.ItemModelGenerator;
+import net.minecraft.data.client.Model;
 import net.minecraft.data.client.ModelIds;
 import net.minecraft.data.client.Models;
 import net.minecraft.data.client.MultipartBlockStateSupplier;
@@ -24,10 +25,30 @@ import symbolics.division.armisteel.ArmiBlocks;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class ArmisticeBlockStateProvider extends FabricModelProvider {
     public ArmisticeBlockStateProvider(FabricDataOutput output) {
         super(output);
+    }
+
+    public static TextureKey BARS = TextureKey.of("bars");
+
+    public static Model IRON_BARS_CAP = block("iron_bars_cap", "_cap", BARS, TextureKey.EDGE);
+
+    public static Model IRON_BARS_CAP_ALT = block("iron_bars_cap_alt", "_cap_alt", BARS, TextureKey.EDGE);
+
+    public static Model IRON_BARS_POST = block("iron_bars_post", "_post", BARS);
+
+    public static Model IRON_BARS_POST_ENDS = block("iron_bars_post_ends", "_post_ends", TextureKey.EDGE);
+
+    public static Model IRON_BARS_SIDE = block("iron_bars_side", "_side", BARS, TextureKey.EDGE);
+
+    public static Model IRON_BARS_SIDE_ALT = block("iron_bars_side_alt", "_side_alt", BARS, TextureKey.EDGE);
+
+
+    private static Model block(String parent, String variant, TextureKey... requiredTextureKeys) {
+        return new Model(Optional.of(Identifier.ofVanilla("block/" + parent)), Optional.of(variant), requiredTextureKeys);
     }
 
     public void cubeAllWithItem(List<Block> blocks, BlockStateModelGenerator generator) {
@@ -90,17 +111,64 @@ public class ArmisticeBlockStateProvider extends FabricModelProvider {
 
         for (Block block : ArmiBlocks.ARMISTEEL_BULB.blocks()) bulb(block, generator);
         for (Block block : ArmiBlocks.ARMISTEEL_BARS.blocks()) {
-            TextureMap textureMap = new TextureMap().put(TextureKey.PANE, TextureMap.getId(block)).put(TextureKey.EDGE, TextureMap.getId(block));
+            TextureMap barsEdge = new TextureMap()
+                    .put(BARS, TextureMap.getId(block))
+                    .put(TextureKey.EDGE, TextureMap.getId(block));
 
-            Identifier identifier = Models.TEMPLATE_GLASS_PANE_POST.upload(block, textureMap, generator.modelCollector);
-            Identifier identifier2 = Models.TEMPLATE_GLASS_PANE_SIDE.upload(block, textureMap, generator.modelCollector);
-            Identifier identifier3 = Models.TEMPLATE_GLASS_PANE_SIDE_ALT.upload(block, textureMap, generator.modelCollector);
-            Identifier identifier4 = Models.TEMPLATE_GLASS_PANE_NOSIDE.upload(block, textureMap, generator.modelCollector);
-            Identifier identifier5 = Models.TEMPLATE_GLASS_PANE_NOSIDE_ALT.upload(block, textureMap, generator.modelCollector);
-            Item item = block.asItem();
-            Models.GENERATED.upload(ModelIds.getItemModelId(item), TextureMap.layer0(block), generator.modelCollector);
-            generator.blockStateCollector.accept(MultipartBlockStateSupplier.create(block).with(BlockStateVariant.create().put(VariantSettings.MODEL, identifier)).with(When.create().set(Properties.NORTH, true), BlockStateVariant.create().put(VariantSettings.MODEL, identifier2)).with(When.create().set(Properties.EAST, true), BlockStateVariant.create().put(VariantSettings.MODEL, identifier2).put(VariantSettings.Y, VariantSettings.Rotation.R90)).with(When.create().set(Properties.SOUTH, true), BlockStateVariant.create().put(VariantSettings.MODEL, identifier3)).with(When.create().set(Properties.WEST, true), BlockStateVariant.create().put(VariantSettings.MODEL, identifier3).put(VariantSettings.Y, VariantSettings.Rotation.R90)).with(When.create().set(Properties.NORTH, false), BlockStateVariant.create().put(VariantSettings.MODEL, identifier4)).with(When.create().set(Properties.EAST, false), BlockStateVariant.create().put(VariantSettings.MODEL, identifier5)).with(When.create().set(Properties.SOUTH, false), BlockStateVariant.create().put(VariantSettings.MODEL, identifier5).put(VariantSettings.Y, VariantSettings.Rotation.R90)).with(When.create().set(Properties.WEST, false), BlockStateVariant.create().put(VariantSettings.MODEL, identifier4).put(VariantSettings.Y, VariantSettings.Rotation.R270)));
+            TextureMap bars = new TextureMap().put(BARS, TextureMap.getId(block));
+
+            TextureMap edge = new TextureMap().put(TextureKey.EDGE, TextureMap.getId(block));
+
+            Identifier cap = IRON_BARS_CAP.upload(block, barsEdge, generator.modelCollector);
+            Identifier capAlt = IRON_BARS_CAP_ALT.upload(block, barsEdge, generator.modelCollector);
+            Identifier post = IRON_BARS_POST.upload(block, bars, generator.modelCollector);
+            Identifier postEnds = IRON_BARS_POST_ENDS.upload(block, edge, generator.modelCollector);
+            Identifier side = IRON_BARS_SIDE.upload(block, barsEdge, generator.modelCollector);
+            Identifier sideAlt = IRON_BARS_SIDE_ALT.upload(block, barsEdge, generator.modelCollector);
+
+            When nt = When.create().set(Properties.NORTH, true);
+            When nf = When.create().set(Properties.NORTH, false);
+
+            When st = When.create().set(Properties.SOUTH, true);
+            When sf = When.create().set(Properties.SOUTH, false);
+
+            When et = When.create().set(Properties.EAST, true);
+            When ef = When.create().set(Properties.EAST, false);
+
+            When wt = When.create().set(Properties.WEST, true);
+            When wf = When.create().set(Properties.WEST, false);
+
+            Models.GENERATED.upload(ModelIds.getItemModelId(block.asItem()), TextureMap.layer0(block), generator.modelCollector);
+
+            generator.blockStateCollector.accept(MultipartBlockStateSupplier.create(block)
+                    .with(BlockStateVariant.create().put(VariantSettings.MODEL, postEnds))
+                    .with(When.allOf(nf, sf, ef, wf), BlockStateVariant.create().put(VariantSettings.MODEL, post))
+                    .with(When.allOf(nt, sf, ef, wf), BlockStateVariant.create().put(VariantSettings.MODEL, cap))
+                    .with(
+                            When.allOf(nf, sf, et, wf),
+                            BlockStateVariant.create().put(VariantSettings.MODEL, cap)
+                                    .put(VariantSettings.Y, VariantSettings.Rotation.R90)
+                    )
+                    .with(When.allOf(nf, st, ef, wf), BlockStateVariant.create().put(VariantSettings.MODEL, capAlt))
+                    .with(
+                            When.allOf(nf, sf, ef, wt),
+                            BlockStateVariant.create().put(VariantSettings.MODEL, capAlt)
+                                    .put(VariantSettings.Y, VariantSettings.Rotation.R90)
+                    )
+                    .with(nt, BlockStateVariant.create().put(VariantSettings.MODEL, side))
+                    .with(
+                            et,
+                            BlockStateVariant.create().put(VariantSettings.MODEL, side)
+                                    .put(VariantSettings.Y, VariantSettings.Rotation.R90)
+                    )
+                    .with(st, BlockStateVariant.create().put(VariantSettings.MODEL, sideAlt))
+                    .with(
+                            wt,
+                            BlockStateVariant.create().put(VariantSettings.MODEL, sideAlt)
+                                    .put(VariantSettings.Y, VariantSettings.Rotation.R90)
+                    ));
         }
+
         for (Block block : ArmiBlocks.ARMISTEEL_TRAPDOOR.blocks()) generator.registerTrapdoor(block);
         for (Block block : ArmiBlocks.ARMISTEEL_DOOR.blocks()) generator.registerDoor(block);
     }
