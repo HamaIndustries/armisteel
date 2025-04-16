@@ -1,7 +1,10 @@
 package symbolics.division.armisteel;
 
+import net.minecraft.block.jukebox.JukeboxSong;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 
@@ -15,6 +18,12 @@ public class ArmiSoundEvents {
     public static final SoundEvent BLOCK$ARMISTEEL$HIT = of("block.armisteel.hit");
 
     public static final SoundEvent BLOCK$ARMISTEEL$STEP = of("block.armisteel.step");
+
+    public static final SoundEvent MUSIC$RECALLED = of("music.recalled");
+
+    public static final RegistryKey<JukeboxSong> KEY$MUSIC$RECALLED = RegistryKey.of(
+            RegistryKeys.JUKEBOX_SONG, Armisteel.id("recalled")
+    );
 
     public static class Types {
         public static final BlockSoundGroup ARMISTEEL = new BlockSoundGroup(

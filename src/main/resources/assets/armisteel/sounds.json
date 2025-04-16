@@ -29,5 +29,10 @@
       "armisteel:block/armisteel/step3",
       "armisteel:block/armisteel/step4"
     ]
+  },
+  "music.recalled": {
+    "sounds": [
+      "armisteel:music/recalled"
+    ]
   }
 }

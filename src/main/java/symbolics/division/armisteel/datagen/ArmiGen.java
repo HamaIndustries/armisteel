@@ -13,7 +13,12 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
+import net.minecraft.data.DataWriter;
+import net.minecraft.data.client.BlockStateModelGenerator;
+import net.minecraft.data.client.ItemModelGenerator;
+import net.minecraft.data.client.Models;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -21,6 +26,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.text.WordUtils;
 import symbolics.division.armisteel.ArmiBlocks;
+import symbolics.division.armisteel.ArmistItems;
 import symbolics.division.armisteel.Armisteel;
 import symbolics.division.armisteel.ArmisteelType;
 
@@ -39,11 +45,43 @@ public class ArmiGen implements DataGeneratorEntrypoint {
         pack.addProvider(ArmiModelProvider::new);
         pack.addProvider(ArmiTextureMetadataProvider::new);
         pack.addProvider(ArmiLanguageProvider::new);
+        pack.addProvider(ArmiFabricModelProvider::new);
+    }
+
+    private static class ArmiFabricModelProvider extends FabricModelProvider {
+        public ArmiFabricModelProvider(FabricDataOutput output) {
+            super(output);
+        }
+
+        @Override
+        public String getName() {
+            return "Fabric Model Definitions";
+        }
+
+        @Override
+        public CompletableFuture<?> run(DataWriter writer) {
+            return super.run(writer);
+        }
+
+        @Override
+        public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
+
+        }
+
+        @Override
+        public void generateItemModels(ItemModelGenerator itemModelGenerator) {
+            itemModelGenerator.register(ArmistItems.MUSIC_FILE_RECALLED, Models.GENERATED);
+        }
     }
 
     private static class ArmiModelProvider extends FusionModelProvider {
         public ArmiModelProvider(FabricDataOutput output) {
             super(Armisteel.MOD_ID, output);
+        }
+
+        @Override
+        public String getName() {
+            return "Fusion Model Definitions";
         }
 
         @Override
@@ -142,6 +180,8 @@ public class ArmiGen implements DataGeneratorEntrypoint {
                     ),
                     "Armisteel"
             );
+
+            builder.add("item.armisteel.music_file_recalled", "Music File");
         }
 
         private void addAll(ArmiBlocks.BlockType type, TranslationBuilder builder) {
